@@ -52,6 +52,9 @@ const rockChoice = `Computer chooses rock!`;
 const paperChoice = `Computer chooses paper!`;
 const scissorsChoice = `Computer chooses scissors!`;
 
+let playerPoints = 0;
+let computerPoints = 0;
+
 
 function playRound(playerSelection, computerSelection){
 
@@ -65,23 +68,57 @@ function playRound(playerSelection, computerSelection){
         return alert(scissorsChoice), alert(scissorsTie);
     }
     else if(playerSelection == rock && computerSelection == scissors){
+        playerPoints++;
         return alert(scissorsChoice), alert(rockWin);
     }
     else if(playerSelection == paper && computerSelection == rock){
+        playerPoints++;
         return alert(rockChoice), alert(paperWin);
     }
     else if(playerSelection == scissors && computerSelection == paper){
+        playerPoints++;
         return alert(paperChoice), alert(scissorsWin);
     }
     else if(playerSelection == rock && computerSelection == paper){
+        computerPoints++;
         return alert(paperChoice), alert(rockLose);
     }
     else if(playerSelection == paper && computerSelection == scissors){
+        computerPoints++;
         return alert(scissorsChoice), alert(paperLose);
     }
     else if(playerSelection == scissors && computerSelection == rock){
+        computerPoints++;
         return alert(rockChoice), alert(scissorsLose);
     }
 }
 
-playRound(getPlayerChoice(), getComputerChoice());
+function playGame(){
+
+    const count = 5;
+    let i = 0;
+
+    while(i < count) {
+        playRound(getPlayerChoice(), getComputerChoice());
+        i++;
+    }
+
+    if(i >= count){
+        alert(`And the winner is...`);
+        if(playerPoints > computerPoints){
+            alert(`Player score: ${playerPoints}. Computer score: ${computerPoints}.`);
+            alert(`You! The Player by ${playerPoints} vs ${computerPoints}!`)
+        }
+        else if(playerPoints < computerPoints){
+            alert(`Player score: ${playerPoints}. Computer score: ${computerPoints}.`);
+            alert(`Awww! The Computer by ${computerPoints} vs ${playerPoints}`)
+        }
+        else if(playerPoints == computerPoints){
+            alert(`Player score: ${playerPoints}. Computer score: ${computerPoints}.`);
+            alert(`OMG! Its a tie by ${playerPoints} vs ${computerPoints}!`)
+        }
+    }
+    
+}
+
+playGame();

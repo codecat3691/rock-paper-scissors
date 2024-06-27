@@ -95,28 +95,20 @@ function playRound(playerSelection, computerSelection){
 
 function playGame(){
 
-    const count = 5;
-    let i = 0;
-
-    while(i < count) {
-        playRound(getPlayerChoice(), getComputerChoice());
-        i++;
+    playRound(getPlayerChoice(), getComputerChoice());
+        
+    alert(`And the winner is...`);
+    if(playerPoints > computerPoints){
+        alert(`Player score: ${playerPoints}. Computer score: ${computerPoints}.`);
+        alert(`You! The Player by ${playerPoints} vs ${computerPoints}!`)
     }
-
-    if(i >= count){
-        alert(`And the winner is...`);
-        if(playerPoints > computerPoints){
-            alert(`Player score: ${playerPoints}. Computer score: ${computerPoints}.`);
-            alert(`You! The Player by ${playerPoints} vs ${computerPoints}!`)
-        }
-        else if(playerPoints < computerPoints){
-            alert(`Player score: ${playerPoints}. Computer score: ${computerPoints}.`);
-            alert(`Awww! The Computer by ${computerPoints} vs ${playerPoints}`)
-        }
-        else if(playerPoints == computerPoints){
-            alert(`Player score: ${playerPoints}. Computer score: ${computerPoints}.`);
-            alert(`OMG! Its a tie by ${playerPoints} vs ${computerPoints}!`)
-        }
+    else if(playerPoints < computerPoints){
+        alert(`Player score: ${playerPoints}. Computer score: ${computerPoints}.`);
+        alert(`Awww! The Computer by ${computerPoints} vs ${playerPoints}`)
+    }
+    else if(playerPoints == computerPoints){
+        alert(`Player score: ${playerPoints}. Computer score: ${computerPoints}.`);
+        alert(`OMG! Its a tie by ${playerPoints} vs ${computerPoints}!`)
     }
     
 }

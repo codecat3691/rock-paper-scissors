@@ -4,10 +4,48 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="style.css">
-    <script src="script.js"></script>
     <title>Rock-Paper-Scissors</title>
 </head>
 <body>
+
+    <div id="title">
+        <h1>ROCK PAPER SCISSORS</h1>
+    </div>
+
+
+    <div id="container">
+        
+        <div id="feedback">
+        
+            <p class="text" id="explanation">Choose your destiny...</p>
+            <p class="text" id="condition">Taste victory by scoring 5 points!</p>
     
+        </div>
+    
+        <div id="buttons">
+            <button id="rock"></button>
+            <button id="paper"></button>
+            <button id="scissors"></button>
+        </div>
+
+        <div id="score">
+            <div class="text" id="playerScore">PlayerScore: 0</div>
+            <div class="text" id="computerScore">ComputerScore: 0</div>
+        </div>
+
+    </div>
+
+    <div id="popup" class="popup">
+        <div class="popup-content">
+            <p id="message">You Win!</p>
+            <button id="playAgainButton">Play Again</button>
+        </div>
+    </div>
+
+    <div id="footer">
+        Copyright © 2024 codecat3691
+    </div>
+
+    <script src="script.js"></script>
 </body>
 </html>

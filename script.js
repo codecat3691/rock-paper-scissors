@@ -23,22 +23,6 @@ function getComputerChoice(){
     return computerSelection;
 }
 
-function getPlayerChoice(){
-
-    let playerSelection;
-
-    playerSelection = prompt(`Please enter rock, paper or scissors`).toLowerCase();
-
-    if(playerSelection == rock || playerSelection == paper || playerSelection == scissors) {
-        return playerSelection;
-    }
-    else {
-        alert(`Please enter rock, paper or scissors, not something else!`)
-        return getPlayerChoice();
-    }
-
-}
-
 const rockTie = `Its a tie! Rock wont beat Rock`;
 const paperTie = `Its a tie! Paper wont beat Paper`;
 const scissorsTie = `Its a tie! Scissors wont beat Scissors`;
@@ -52,65 +36,165 @@ const rockChoice = `Computer chooses rock!`;
 const paperChoice = `Computer chooses paper!`;
 const scissorsChoice = `Computer chooses scissors!`;
 
+const initialExplanation = `Choose your destiny...`;
+const initialCondition = `Taste victory by scoring 5 points!`;
+
 let playerPoints = 0;
 let computerPoints = 0;
+
+let explanation = document.getElementById("explanation");
+let condition = document.getElementById("condition");
 
 
 function playRound(playerSelection, computerSelection){
 
     if(playerSelection == rock && computerSelection == rock){
-        return alert(rockChoice), alert(rockTie);
+        return explanation.textContent = rockChoice, condition.textContent = rockTie;
     }
     else if(playerSelection == paper && computerSelection == paper){
-        return alert(paperChoice), alert(paperTie);
+        return explanation.textContent = paperChoice, condition.textContent = paperTie;
     }
     else if(playerSelection == scissors && computerSelection == scissors){
-        return alert(scissorsChoice), alert(scissorsTie);
+        return explanation.textContent = scissorsChoice, condition.textContent = scissorsTie;
     }
     else if(playerSelection == rock && computerSelection == scissors){
         playerPoints++;
-        return alert(scissorsChoice), alert(rockWin);
+        document.getElementById("playerScore").textContent = "PlayerScore: " + playerPoints;
+        document.getElementById("computerScore").textContent = "ComputerScore: " + computerPoints;
+        return explanation.textContent = scissorsChoice, condition.textContent = rockWin;
     }
     else if(playerSelection == paper && computerSelection == rock){
         playerPoints++;
-        return alert(rockChoice), alert(paperWin);
+        document.getElementById("playerScore").textContent = "PlayerScore: " + playerPoints;
+        document.getElementById("computerScore").textContent = "ComputerScore: " + computerPoints;
+        return explanation.textContent = rockChoice, condition.textContent = paperWin;
     }
     else if(playerSelection == scissors && computerSelection == paper){
         playerPoints++;
-        return alert(paperChoice), alert(scissorsWin);
+        document.getElementById("playerScore").textContent = "PlayerScore: " + playerPoints;
+        document.getElementById("computerScore").textContent = "ComputerScore: " + computerPoints;
+        return explanation.textContent = paperChoice, condition.textContent = scissorsWin;
     }
     else if(playerSelection == rock && computerSelection == paper){
         computerPoints++;
-        return alert(paperChoice), alert(rockLose);
+        document.getElementById("playerScore").textContent = "PlayerScore: " + playerPoints;
+        document.getElementById("computerScore").textContent = "ComputerScore: " + computerPoints;
+        return explanation.textContent = paperChoice, condition.textContent = rockLose;
     }
     else if(playerSelection == paper && computerSelection == scissors){
         computerPoints++;
-        return alert(scissorsChoice), alert(paperLose);
+        document.getElementById("playerScore").textContent = "PlayerScore: " + playerPoints;
+        document.getElementById("computerScore").textContent = "ComputerScore: " + computerPoints;
+        return explanation.textContent = scissorsChoice, condition.textContent = paperLose;
     }
     else if(playerSelection == scissors && computerSelection == rock){
         computerPoints++;
-        return alert(rockChoice), alert(scissorsLose);
+        document.getElementById("playerScore").textContent = "PlayerScore: " + playerPoints;
+        document.getElementById("computerScore").textContent = "ComputerScore: " + computerPoints;
+        return explanation.textContent = rockChoice, condition.textContent = scissorsLose;
     }
+
 }
 
-function playGame(){
 
-    playRound(getPlayerChoice(), getComputerChoice());
+let winnerDisplayed = false;
+
+// Adding event listeners to each button
+document.getElementById('rock').addEventListener('click', function() {
+    if(playerPoints < 5 && computerPoints < 5){
+        playRound(rock, getComputerChoice());
+    }
+    else{
+
+        if(!winnerDisplayed){
+            playWinner();
+            winnerDisplayed = true;
+        }
+        else{
+            playPopup();
+        }
+
+    }
+});
+
+document.getElementById('paper').addEventListener('click', function() {
+    if(playerPoints < 5 && computerPoints < 5){
+        playRound(paper, getComputerChoice());
+    }
+    else{
+
+        if(!winnerDisplayed){
+            playWinner();
+            winnerDisplayed = true;
+        }
+        else{
+            playPopup();
+        }
+
+    }
+});
+
+document.getElementById('scissors').addEventListener('click', function() {
+    if(playerPoints < 5 && computerPoints < 5){
+        playRound(scissors, getComputerChoice());
+    }
+    else{
         
-    alert(`And the winner is...`);
+        if(!winnerDisplayed){
+            playWinner();
+            winnerDisplayed = true;
+        }
+        else{
+            playPopup();
+        }
+
+    }
+});
+
+
+function playWinner(){
+
+    explanation.textContent = "And the winner is...";
+
     if(playerPoints > computerPoints){
-        alert(`Player score: ${playerPoints}. Computer score: ${computerPoints}.`);
-        alert(`You! The Player by ${playerPoints} vs ${computerPoints}!`)
+        
+        condition.textContent = `You! The Player by ${playerPoints} vs ${computerPoints}!`;
     }
     else if(playerPoints < computerPoints){
-        alert(`Player score: ${playerPoints}. Computer score: ${computerPoints}.`);
-        alert(`Awww! The Computer by ${computerPoints} vs ${playerPoints}`)
+        
+        condition.textContent = `Awww! The Computer by ${computerPoints} vs ${playerPoints}`;
     }
     else if(playerPoints == computerPoints){
-        alert(`Player score: ${playerPoints}. Computer score: ${computerPoints}.`);
-        alert(`OMG! Its a tie by ${playerPoints} vs ${computerPoints}!`)
+        
+        condition.textContent = `OMG! Its a tie by ${playerPoints} vs ${computerPoints}!`;
     }
     
 }
 
-playGame();
+function playPopup(){
+
+    var popup = document.getElementById('popup');
+    var playAgainButton = document.getElementById('playAgainButton');
+    var message = document.getElementById('message');
+
+    popup.style.display = 'flex';
+
+    message.textContent = playerPoints > computerPoints ? 'You Win!' : 'You Lose!';
+
+    function playAgain() {
+        
+        popup.style.display = 'none';
+
+        playerPoints = 0;
+        computerPoints = 0;
+        explanation.textContent = initialExplanation;
+        condition.textContent = initialCondition;
+
+        document.getElementById("playerScore").textContent = "PlayerScore: " + playerPoints;
+        document.getElementById("computerScore").textContent = "ComputerScore: " + computerPoints;
+
+        winnerDisplayed = false;
+    }
+
+    playAgainButton.addEventListener('click', playAgain);
+}
